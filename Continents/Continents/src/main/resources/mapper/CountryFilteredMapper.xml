@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.Projects.Continents.mapper.CountryFilteredMapper">
+
+    <select id="findFilteredAllCountries"
+            resultType="com.Projects.Continents.model.CountryFiltered">
+
+		SELECT
+			co.name AS continentName,
+			r.name  AS regionName,
+			c.name  AS countryName,
+			cs.year,
+			cs.population,
+			cs.gdp
+		FROM country_stats cs
+		JOIN countries c   ON cs.country_id = c.country_id
+		JOIN regions r     ON c.region_id = r.region_id
+		JOIN continents co ON r.continent_id = co.continent_id
+		WHERE 1=1
+
+		<if test="regionId != null">
+			AND r.region_id = #{regionId}
+		</if>
+
+		<if test="yearFrom != null">
+			AND cs.year &gt;= #{yearFrom}
+		</if>
+
+		<if test="yearTo != null">
+			AND cs.year &lt;= #{yearTo}
+		</if>
+		
+		ORDER BY c.name, r.name, co.name , cs.year
+		LIMIT #{limit} OFFSET #{offset}
+	
+    </select>
+
+</mapper>

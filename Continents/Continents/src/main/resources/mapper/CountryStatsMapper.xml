@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.Projects.Continents.mapper.CountryStatsMapper">
+
+    <select id="findMaxGdpPerPopulationForAllCountries"
+            resultType="com.Projects.Continents.model.CountryStats">
+
+        SELECT
+            c.name            AS name,
+            c.country_id      AS countryId,
+            c.country_code3   AS countryCode3,
+            cs.year           AS year,
+            cs.population     AS population,
+            cs.gdp            AS gdp
+        FROM countries c
+        JOIN country_stats cs
+            ON c.country_id = cs.country_id
+        JOIN (
+            SELECT
+                country_id,
+                MAX(gdp * 1.0 / population) AS max_ratio
+            FROM country_stats
+            WHERE population > 0
+            GROUP BY country_id
+        ) max_cs
+            ON cs.country_id = max_cs.country_id
+           AND (cs.gdp * 1.0 / cs.population) = max_cs.max_ratio
+        ORDER BY c.name
+
+    </select>
+
+</mapper>
