@@ -1,0 +1,12 @@
+<h2 *ngIf="countryName">Languages spoken in {{ countryName }}</h2>
+
+<p *ngIf="loading">Loading languages...</p>
+<p *ngIf="error" style="color:red">Failed to load languages</p>
+
+<ul *ngIf="!loading && !error">
+  <li *ngFor="let lang of languages">
+    {{ lang.language }}
+  </li>
+</ul>
+
+<a routerLink="/countries">⬅ Back to countries</a>

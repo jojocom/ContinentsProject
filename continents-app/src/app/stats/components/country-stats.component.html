@@ -1,0 +1,30 @@
+<h2>Countries Stats</h2>
+
+<p *ngIf="error" style="color:red">Failed to load stats</p>
+
+<ng-container *ngIf="stats$ | async as stats; else loading">
+  <table border="1" cellpadding="5" cellspacing="0">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Country Code</th>
+        <th>Year (of Max Ratio)</th>
+        <th>Population (of Max Ratio)</th>
+        <th>GDP (of Max Ratio)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let stat of stats">
+        <td>{{ stat.name }}</td>
+        <td>{{ stat.countryCode3 }}</td>
+        <td>{{ stat.year }}</td>
+        <td>{{ stat.population }}</td>
+        <td>{{ stat.gdp }}</td>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>
+
+<ng-template #loading>
+  <div>Loading stats...</div>
+</ng-template>

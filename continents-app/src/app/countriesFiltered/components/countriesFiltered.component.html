@@ -1,0 +1,66 @@
+<h2>Countries Filtered</h2>
+
+<p *ngIf="error" style="color:red">Failed to load stats</p>
+
+<div style="margin-bottom: 20px;">
+   <div style="margin-bottom: 10px;">
+    <label style="margin-right: 8px;">Region:</label>
+    <select [(ngModel)]="selectedRegionId">
+	  <option [ngValue]="null">-- Select Region --</option>
+	  <option *ngFor="let region of regions$ | async" [ngValue]="region.regionId">
+		{{ region.name }}
+	  </option>
+	</select>
+
+  </div>
+  
+  <div style="margin-bottom: 10px;">
+    <label style="margin-right: 8px;">Year From:</label>
+    <input type="number" [(ngModel)]="yearFromInput" style="margin-right: 20px;" />
+
+    <label style="margin-right: 8px;">Year To:</label>
+    <input type="number" [(ngModel)]="yearToInput" />
+  </div>
+
+
+  <div style="margin-top: 10px;">
+    <button (click)="applyFilters()">Apply Filters</button>
+  </div>
+</div>
+
+
+<div style="margin-top: 30px;">
+  <ng-container *ngIf="countriesFiltered$ | async as countries; else loading">
+    <table border="1" cellpadding="5" cellspacing="0">
+      <thead>
+        <tr>
+          <th>Country Name</th>
+          <th>Region Name</th>
+          <th>Continent Name</th>
+          <th>Year</th>
+          <th>Population</th>
+          <th>GDP</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let countryFiltered of countries">
+          <td>{{ countryFiltered.countryName }}</td>
+          <td>{{ countryFiltered.regionName }}</td>
+          <td>{{ countryFiltered.continentName }}</td>
+          <td>{{ countryFiltered.year }}</td>
+          <td>{{ countryFiltered.population }}</td>
+          <td>{{ countryFiltered.gdp }}</td>
+        </tr>
+      </tbody>
+    </table>
+	<div style="margin-top: 15px;"> 
+		<button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">Previous</button>
+		<span style="margin: 0 10px;">Page {{ currentPage }}</span> 
+		<button (click)="goToPage(currentPage + 1)" [disabled]="countries.length < pageSize">Next</button>
+	</div> 
+  </ng-container>
+
+  <ng-template #loading>
+    <div>Loading filtered countries...</div>
+  </ng-template>
+</div>

@@ -1,0 +1,20 @@
+<h2>Continents</h2>
+
+<p *ngIf="error">Failed to load continents</p>
+
+<ng-container *ngIf="continents$ | async as continents; else loading">
+  <ul>
+    <li *ngFor="let continent of continents">
+      {{ continent.name }}
+    </li>
+  </ul>
+</ng-container>
+
+<ng-template #loading>
+  <div>Loading...</div>
+</ng-template>
+
+
+
+
+
