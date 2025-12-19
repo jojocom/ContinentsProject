@@ -13,7 +13,7 @@ import { Observable, catchError, of } from 'rxjs';
 export class ContinentsComponent implements OnInit {
 
   continents$!: Observable<Continent[]>;
-  error = false;  // <-- add this property
+  error = false;
 
   constructor(private continentService: ContinentService) {}
 
@@ -21,7 +21,7 @@ export class ContinentsComponent implements OnInit {
     this.continents$ = this.continentService.getContinents().pipe(
       catchError(err => {
         console.error('Error loading continents:', err);
-        this.error = true;  // <-- set error if request fails
+        this.error = true;
         return of([]);
       })
     );

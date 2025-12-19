@@ -9,7 +9,7 @@ import { routes } from './app/routes';
 bootstrapApplication(AppComponent, {
   providers: [
     importProvidersFrom(
-      RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' }), // <-- add this option
+      RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' }),
       HttpClientModule
     )
   ]
