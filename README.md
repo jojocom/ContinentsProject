@@ -22,4 +22,7 @@ Angular calls http://localhost:8080/<requestName>
 
 
 DB -> 12.2.1-MariaDB (with given .sql dump)
+spring.datasource.url=jdbc:mariadb://localhost:3306/nation
+spring.datasource.username=root
+spring.datasource.password=root
 
