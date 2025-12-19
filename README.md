@@ -17,6 +17,10 @@ eg
 continents-app folder -> Frontend (Angular CLI       : 21.0.3
 								   Angular           : 21.0.6
 							       Node.js           : 24.12.0)
+(may be needed)
+npm install @angular/core@21.0.6 @angular/common@21.0.6 @angular/forms@21.0.6 @angular/router@21.0.6 @angular/platform-browser@21.0.6 @angular/platform-browser-dynamic@21.0.6
+ng serve --open
+								   
 Runs on http://localhost:4200
 Angular calls http://localhost:8080/<requestName>
 
